@@ -25,7 +25,6 @@ export class UserLoginFormComponent implements OnInit {
       (result) => {
         // Logic for a successful user login goes here! (To be implemented)
         this.dialogRef.close(); // This will close the modal on success!
-        console.log("login successful:", result);
         this.snackBar.open("Login successful", "OK", {
           duration: 2000,
         });
@@ -34,7 +33,6 @@ export class UserLoginFormComponent implements OnInit {
         this.router.navigate(["movies"]);
       },
       (error) => {
-        console.error("login error:", error);
         if (error.error && typeof error.error === "object") {
           // Log the error object
           console.error("Error object from server:", error.error);

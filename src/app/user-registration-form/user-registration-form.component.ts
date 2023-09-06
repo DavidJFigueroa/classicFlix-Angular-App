@@ -30,7 +30,6 @@ export class UserRegistrationFormComponent implements OnInit {
         });
       },
       (error) => {
-        console.error("Registration error:", error);
         if (error.error && typeof error.error === "object") {
           // Log the error object
           console.error("Error object from server:", error.error);

@@ -8,14 +8,22 @@ app-navigation-bar {
   text-align: center;
 }
 
-.userinfo {
-  margin-top: 40px;
-  margin-bottom: 50px;
+.grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 mat-card {
-  width: 40%;
+  // max-width: 500px;
   margin: auto;
+  margin-top: 40px;
+}
+
+mat-card-title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 2rem;
 }
 
 mat-form-field {
@@ -32,6 +40,31 @@ mat-card-actions {
   text-align: center;
 }
 
-button {
+.infobutton {
   margin: 10px;
+  padding: 30px;
+}
+
+img {
+  max-height: 400px;
+  margin: 10px;
+}
+
+mat-card {
+  margin: 20px;
+  max-width: 300px;
+  height: 614px;
+}
+
+.movies-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.favoriteMovies {
+  position: relative;
+  text-align: center;
 }

@@ -1,8 +1,10 @@
 import {Component, OnInit, Input} from "@angular/core";
-import {MatDialogRef} from "@angular/material/dialog";
 import {FetchApiDataService} from "../fetch-api-data.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
+import {formatDate} from "@angular/common";
+import {MovieInfoComponent} from "../movie-info/movie-info.component";
 
 @Component({
   selector: "app-profile-view",
@@ -17,7 +19,7 @@ export class ProfileViewComponent implements OnInit {
 
   constructor(
     public fetchApiData: FetchApiDataService,
-    // public dialogRef: MatDialogRef<ProfileViewComponent>,
+    public dialog: MatDialog,
     public snackBar: MatSnackBar,
     private router: Router
   ) {}
@@ -27,11 +29,29 @@ export class ProfileViewComponent implements OnInit {
   }
 
   getThisUser(): void {
-    this.user = this.fetchApiData.getUser();
-    this.userData.Username = this.user.Username;
-    this.userData.Email = this.user.Email;
-    this.userData.Birthday = this.user.Birthday;
+    this.fetchApiData.getUser().subscribe(
+      (userResponse) => {
+        // Update the user data when it's available
+        this.user = userResponse;
+        this.userData.Username = this.user.Username;
+        this.userData.Email = this.user.Email;
+        this.userData.Birthday = formatDate(
+          this.user.Birthday,
+          "yyyy-MM-dd",
+          "en-US",
+          "UTC+0"
+        );
 
+        // Fetch favorite movies once user data is available
+        this.fetchFavoriteMovies();
+      },
+      (error) => {
+        console.error("Error fetching user data:", error);
+      }
+    );
+  }
+
+  fetchFavoriteMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.favMovies = resp.filter(
         (m: {_id: any}) => this.user.FavoriteMovies.indexOf(m._id) >= 0
@@ -42,14 +62,12 @@ export class ProfileViewComponent implements OnInit {
   editUserInfo(): void {
     this.fetchApiData.editUser(this.userData).subscribe(
       (result) => {
-        console.log("edit successful:", result);
         this.snackBar.open("Personal info successfully changed", "OK", {
           duration: 2000,
         });
         localStorage.setItem("user", JSON.stringify(result.user));
       },
       (error) => {
-        console.error("login error:", error);
         if (error.error && typeof error.error === "object") {
           // Log the error object
           console.error("Error object from server:", error.error);
@@ -72,7 +90,6 @@ export class ProfileViewComponent implements OnInit {
         this.router.navigate(["welcome"]);
       },
       (error) => {
-        console.error("login error:", error);
         if (error.error && typeof error.error === "object") {
           // Log the error object
           console.error("Error object from server:", error.error);
@@ -82,5 +99,47 @@ export class ProfileViewComponent implements OnInit {
         });
       }
     );
+  }
+
+  openGenre(name: string, description: string): void {
+    this.dialog.open(MovieInfoComponent, {
+      data: {
+        title: name,
+        content: description,
+      },
+      //width: '280px'
+    });
+  }
+
+  openDirector(name: string, bio: string): void {
+    this.dialog.open(MovieInfoComponent, {
+      data: {
+        title: name,
+        content: bio,
+      },
+      //width: '280px'
+    });
+  }
+
+  openSynopsis(description: string): void {
+    this.dialog.open(MovieInfoComponent, {
+      data: {
+        title: "Synopsis",
+        content: description,
+      },
+      //width: '280px'
+    });
+  }
+
+  isFavorite(id: string): boolean {
+    return this.fetchApiData.isFavoriteMovie(id);
+  }
+
+  removeFavorite(id: string): void {
+    this.fetchApiData.removeMovieFromFavorites(id).subscribe((result) => {
+      this.snackBar.open("Movie removed from favorites.", "OK", {
+        duration: 2000,
+      });
+    });
   }
 }
