@@ -45,6 +45,4 @@ export class UserLoginFormComponent implements OnInit {
       }
     );
   }
-
-
 }

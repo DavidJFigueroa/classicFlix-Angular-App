@@ -1,0 +1,37 @@
+app-navigation-bar {
+  position: relative;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.profile {
+  text-align: center;
+}
+
+.userinfo {
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+mat-card {
+  width: 40%;
+  margin: auto;
+}
+
+mat-form-field {
+  margin: 10px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons {
+  text-align: center;
+}
+
+button {
+  margin: 10px;
+}

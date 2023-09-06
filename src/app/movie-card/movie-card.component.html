@@ -1,7 +1,9 @@
-<div style="display: flex">
-  <video autoplay muted loop id="myVideo">
-    <source src="../../assets/backgroundvideo.mp4" type="video/mp4" />
-  </video>
+<!-- <video autoplay muted loop id="myVideo">
+  <source src="../../assets/backgroundvideo.mp4" type="video/mp4" />
+</video> -->
+<app-navigation-bar></app-navigation-bar>
+
+<div class="movies-header" style="display: flex">
   <mat-card *ngFor="let movie of movies" style="flex: 1 1 auto">
     <mat-card-header>
       <mat-card-title>{{ movie.Title }}</mat-card-title>
