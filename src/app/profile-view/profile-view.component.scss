@@ -23,7 +23,7 @@ mat-card {
 mat-card-title {
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: 2rem;
+  font-size: 1.5 rem;
 }
 
 mat-form-field {
@@ -66,5 +66,8 @@ mat-card {
 
 .favoriteMovies {
   position: relative;
+}
+
+.favoriteMovies-header {
   text-align: center;
 }
