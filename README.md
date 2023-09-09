@@ -145,13 +145,6 @@ The `FetchApiDataService` is a service within the Angular Movie App responsible 
     - Deletes the user's profile.
     - Returns the result of the deletion operation.
 
-14. `private extractResponseData(res: any): any` (Private):
-
-    - Extracts response data from an HTTP response.
-
-15. `private handleError(error: HttpErrorResponse): any` (Private):
-    - Handles HTTP error responses and logs them.
-
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
