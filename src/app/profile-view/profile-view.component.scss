@@ -71,3 +71,11 @@ mat-card {
 .favoriteMovies-header {
   text-align: center;
 }
+
+@media only screen and (min-width: 700px) {
+  mat-card {
+    margin-top: 4rem;
+    max-width: 500px;
+    max-height: 400px;
+  }
+}
